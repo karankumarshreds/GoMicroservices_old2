@@ -4,7 +4,7 @@ package main
 import (
 	"log"
 	"net"
-	pb "github.com/karankumarshreds/GoMicroservices/consignment/proto"
+	"github.com/karankumarshreds/GoMicroservices/consignment"
 	"google.golang.org/grpc"
 	"golang.org/x/net/context"
 )
@@ -14,6 +14,6 @@ const (
 )
 
 type Repository struct {
-	consignments []*pb.Consignment
+	consignments []*pb.consignment.pb.go
 }
 
