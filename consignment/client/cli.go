@@ -3,6 +3,7 @@ package main
 // This is a command line utility that will take a JSON consignment file nad interact with our 
 // GRPC service 
 
+
 import (
 	"os"
 	"log"
