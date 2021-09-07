@@ -15,6 +15,7 @@ const (
 
 type RepositoryInterface interface {
 	Create(*pb.Consignment) (*pb.Consignment, error)
+	GetAll() []*pb.Consignment
 }
 
 // Dummy repository instead of a database for now 
@@ -54,8 +55,24 @@ func (s *Service) CreateConsignment(ctx context.Context, in *pb.Consignment) (*p
 	return &pb.Response{ Created : true, Consignment : c }, nil
 }
 
+func (s *Service) GetConsignments(ctx context.Context, req *pb.GetRequest) ([]*pb.Consignment, error){
+	// assuming there is no error for now
+	return s.repo.GetAll(), nil
+}
+
+/*
+	These are helper methods, these have nothing to do with the protobuf interface
+	The functions mentioned above are making use of these helper methods and those 
+	above functions need to have the same types and the names as defined in the proto
+*/
+
 // function to create the consignment and save it to the database 
 func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, error) {
 	repo.consignments = append(repo.consignments, consignment)
 	return consignment, nil
+}
+
+// function to get all the consignments saved in the repository
+func (repo *Repository) GetAll() []*pb.Consignment {
+	return repo.consignments
 }
