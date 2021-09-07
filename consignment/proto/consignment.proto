@@ -22,6 +22,9 @@ message Response {
   Consignment consignment = 2;
 }
 
+message GetRequest {}
+
 service ShippingService {
   rpc CreateConsignment(Consignment) returns (Response) {}
+  rpc GetConsignments(GetRequest) returns (Response) {}
 }

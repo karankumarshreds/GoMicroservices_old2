@@ -44,7 +44,7 @@ func main() {
 		consignment,
 	)
 	if err != nil {
-		log.Fatal("Could not invoke remote procedure %v", err)
+		log.Fatalf("Could not invoke remote procedure %v", err)
 	}
 	log.Printf("Created consignment as %v", response)
 
