@@ -1,5 +1,6 @@
 syntax = "proto3";
 package consignment;
+option go_package = "./";
 
 message Consignment {
   string id = 1;
@@ -19,4 +20,8 @@ message Container {
 message Response {
   bool created = 1;
   Consignment consignment = 2;
+}
+
+service ShippingService {
+  rpc CreateConsignment(Consignment) returns (Response) {}
 }
