@@ -55,9 +55,9 @@ func (s *Service) CreateConsignment(ctx context.Context, in *pb.Consignment) (*p
 	return &pb.Response{ Created : true, Consignment : c }, nil
 }
 
-func (s *Service) GetConsignments(ctx context.Context, req *pb.GetRequest) ([]*pb.Consignment, error){
+func (s *Service) GetConsignments(ctx context.Context, req *pb.GetRequest) (*pb.Response, error){
 	// assuming there is no error for now
-	return s.repo.GetAll(), nil
+	return &pb.Response{ Consignments: s.repo.GetAll() }, nil
 }
 
 /*
