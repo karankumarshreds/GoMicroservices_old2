@@ -15,7 +15,7 @@ const (
 
 type RepositoryInterface interface {
 	Create(*pb.Consignment) (*pb.Consignment, error)
-	GetAll() []*pb.Consignment
+	GetAll(*pb.GetRequest) []*pb.Consignment
 }
 
 // Dummy repository instead of a database for now 
