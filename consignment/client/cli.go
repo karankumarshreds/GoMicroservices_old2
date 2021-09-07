@@ -35,16 +35,22 @@ func main() {
 	}
 	// converted consignment 
 	consignment, err := parseFile(file)
-	if err != nil {
-		log.Fatal("Could not parse")
-	}
+	logError("Could not parse", err)
 	// send it to the grpc server 
 	response, err := client.CreateConsignment(
 		context.Background(),
 		consignment,
 	)
-	if err != nil {
-		log.Fatalf("Could not invoke remote procedure %v", err)
+	logError("Could not invoke remote procedure", err)
+
+	getAll, err := client.GetConsignments(
+		context.Background(),
+		&pb.GetRequest{},
+	)
+	logError("Could not invoke remote procedure", err)
+	
+	for _, v := range getAll.Consignments {
+		log.Printf("Got consignment %v", v)
 	}
 	log.Printf("Created consignment as %v", response)
 
@@ -60,4 +66,10 @@ func parseFile(file string) (*pb.Consignment, error) {
 	}
 	json.Unmarshal(data, &consignment)
 	return consignment, nil
+}
+
+func logError(message string, err error) {
+	if err != nil {
+		log.Printf(message + "%v", err)
+	}
 }
