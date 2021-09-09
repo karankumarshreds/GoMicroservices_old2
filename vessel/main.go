@@ -18,14 +18,18 @@ type Repository struct {
 	vessels []*pb.Vessel
 }
 
+type RepositoryInterface interface {
+	FindAvailableVessels(requirement *pb.Specification) (*pb.Vessel, error)
+}
+
 type Service struct {
-	repo Repository
+	repo RepositoryInterface
 }
 
 func main() {
 	// create repository instance 
-	repo := Repository{}
-	
+	repo := &Repository{}
+
 	// setup grpc server 
 	lis, err := net.Listen("tcp", port)
 	logError("Error while listening", err)
